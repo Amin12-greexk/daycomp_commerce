@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Product;
+use App\Models\Category;
+use Illuminate\Http\Request;
+
+class ShopController extends Controller
+{
+    /**
+     * Display the main shop page with all products.
+     */
+    public function index(Request $request)
+    {
+        // Start with a base query for products
+        $productQuery = Product::query();
+
+        // Check if a category filter is present in the request URL
+        if ($request->has('category')) {
+            $categorySlug = $request->query('category');
+            // Add a condition to the query to filter by the category's slug
+            $productQuery->whereHas('category', function ($query) use ($categorySlug) {
+                $query->where('slug', $categorySlug);
+            });
+        }
+
+        // Fetch the filtered (or unfiltered) products
+        $products = $productQuery->latest()->paginate(12);
+
+        // Return the shop index view, passing the products to it
+        return view('shop.index', compact('products'));
+    }
+
+    /**
+     * Display a single product page.
+     */
+    public function show(Product $product)
+    {
+        // The 'product' is automatically fetched by Laravel's route model binding.
+        $formSchema = json_decode($product->custom_form_schema, true);
+
+        // Return the single product view
+        return view('shop.show', compact('product', 'formSchema'));
+    }
+}

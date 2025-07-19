@@ -1,0 +1,13 @@
+/* File: resources/css/admin.css */
+
+/* Google Font: Source Sans Pro */
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback');
+
+
+/* Font Awesome */
+@import 'admin-lte/plugins/fontawesome-free/css/all.min.css';
+
+/* AdminLTE Theme Style */
+@import 'admin-lte/dist/css/adminlte.min.css';
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback');
+
