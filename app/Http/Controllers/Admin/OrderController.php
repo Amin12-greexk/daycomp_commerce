@@ -42,4 +42,5 @@ class OrderController extends Controller
 
         return redirect()->route('admin.orders.show', $order)->with('success', 'Order status updated successfully.');
     }
+
 }

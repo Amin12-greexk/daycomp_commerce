@@ -84,4 +84,47 @@ class OrderController extends Controller
             return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
         }
     }
+
+    public function retryPayment(Order $order)
+    {
+        // Security: Ensure the authenticated user owns this order
+        if (auth()->id() !== $order->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        // Ensure the order is actually unpaid before proceeding
+        if ($order->payment_status !== 'unpaid' && $order->payment_status !== 'failed') {
+            return redirect()->route('customer.dashboard')->with('error', 'This order cannot be paid for again.');
+        }
+
+        // --- RE-GENERATE MIDTRANS TOKEN ---
+        \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        \Midtrans\Config::$isProduction = config('midtrans.is_production');
+        \Midtrans\Config::$isSanitized = config('midtrans.is_sanitized');
+        \Midtrans\Config::$is3ds = config('midtrans.is_3ds');
+
+        $params = [
+            'transaction_details' => [
+                'order_id' => $order->order_number,
+                'gross_amount' => $order->total_amount,
+            ],
+            'customer_details' => [
+                'first_name' => $order->user->name,
+                'email' => $order->user->email,
+            ],
+        ];
+
+        try {
+            $snapToken = \Midtrans\Snap::getSnapToken($params);
+            // Save the new snap token to the order
+            $order->snap_token = $snapToken;
+            $order->save();
+
+            // Redirect back to the dashboard and flash the new token to the session
+            return redirect()->route('customer.dashboard')->with('snapToken', $snapToken);
+
+        } catch (\Exception $e) {
+            return redirect()->route('customer.dashboard')->with('error', 'Payment gateway error: ' . $e->getMessage());
+        }
+    }
 }
