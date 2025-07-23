@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Order;
+use App\Models\User; // Pastikan model User sudah diimport
 
 class DashboardController extends Controller
 {
@@ -14,7 +18,16 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // Later, we'll pass analytics data to this view
-        return view('admin.dashboard');
+        // Ambil data analitik
+        $totalProducts = Product::count();
+        $totalCategories = Category::count();
+        $totalOrders = Order::count();
+
+        // Mengambil total pelanggan berdasarkan kolom 'role'
+        // Jika 'role' diatur ke 'customer' untuk pelanggan
+        $totalCustomers = User::where('role', 'customer')->count();
+
+        // Meneruskan data ke view
+        return view('admin.dashboard', compact('totalProducts', 'totalCategories', 'totalOrders', 'totalCustomers'));
     }
 }

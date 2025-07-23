@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 
-@section('content-header', 'Categories')
+@section('content-header', 'All Categories')
 
 @section('content')
     <div class="flex justify-end mb-4">
         <a href="{{ route('admin.categories.create') }}"
-            class="px-4 py-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-700">Add Category</a>
+            class="px-4 py-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-700">+ Category</a>
     </div>
     <div class="overflow-hidden bg-white shadow-md rounded-md">
         <table class="min-w-full">

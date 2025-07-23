@@ -40,7 +40,18 @@ class ShopController extends Controller
         // The 'product' is automatically fetched by Laravel's route model binding.
         $formSchema = json_decode($product->custom_form_schema, true);
 
-        // Return the single product view
-        return view('shop.show', compact('product', 'formSchema'));
+        // --- START NEW CODE ---
+
+        // Get products from the same category, excluding the current product
+        $relatedProducts = Product::where('category_id', $product->category_id) // Filter by the current product's category ID
+            ->where('id', '!=', $product->id) // Exclude the current product itself
+            ->inRandomOrder() // Optional: display in a random order
+            ->limit(4) // Limit to 4 related products (you can adjust this)
+            ->get();
+
+        // --- END NEW CODE ---
+
+        // Return the single product view, passing the product, formSchema, and relatedProducts
+        return view('shop.show', compact('product', 'formSchema', 'relatedProducts'));
     }
 }

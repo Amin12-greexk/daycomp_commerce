@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 
-@section('content-header', 'Products')
+@section('content-header', 'All Products')
 
 @section('content')
     <div class="flex justify-end mb-4">
         <a href="{{ route('admin.products.create') }}"
-            class="px-4 py-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-700">Add Product</a>
+            class="px-4 py-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-700">+ Product</a>
     </div>
     <div class="overflow-hidden bg-white shadow-md rounded-md">
         <table class="min-w-full">

@@ -91,13 +91,13 @@
                         <div class="flex mt-1">
                             <select id="status" name="status"
                                 class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                                <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>Processing
+                                <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Menunggu</option>
+                                <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>Dikemas
                                 </option>
-                                <option value="shipped" {{ $order->status == 'shipped' ? 'selected' : '' }}>Shipped</option>
-                                <option value="completed" {{ $order->status == 'completed' ? 'selected' : '' }}>Completed
+                                <option value="shipped" {{ $order->status == 'shipped' ? 'selected' : '' }}>Dikirim</option>
+                                <option value="completed" {{ $order->status == 'completed' ? 'selected' : '' }}>Selesai
                                 </option>
-                                <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>Cancelled
+                                <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>Dibatalkan
                                 </option>
                             </select>
                             <button type="submit"

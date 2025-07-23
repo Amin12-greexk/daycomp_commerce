@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }} | Admin Panel</title>
+    <title>{{ config('app.name', 'Daycomp') }} | Admin Panel</title>
 
     <!-- Scripts -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -24,7 +24,7 @@
             :class="{'translate-x-0 ease-out': sidebarOpen, '-translate-x-full ease-in': !sidebarOpen}">
             <div class="flex items-center justify-center mt-8">
                 <div class="flex items-center">
-                    <span class="mx-2 text-2xl font-semibold text-white">{{ config('app.name', 'Laravel') }}</span>
+                    <span class="mx-2 text-2xl font-semibold text-white">{{ config('app.name', 'Daycomp') }}</span>
                 </div>
             </div>
 

@@ -5,7 +5,7 @@
 
             <div class="max-w-4xl mx-auto">
                 <div class="p-8 bg-white rounded-lg shadow-md">
-                    <h2 class="text-xl font-semibold text-gray-800 border-b pb-4">Order Summary for
+                    <h2 class="text-xl font-semibold text-gray-800 border-b pb-4">Ringkasan Pesanan untuk
                         #{{ $order->order_number }}</h2>
                     <div class="mt-6 space-y-4">
                         @foreach ($order->details as $item)
@@ -35,7 +35,7 @@
                     <div class="mt-8 text-center">
                         <button id="pay-button"
                             class="w-full px-6 py-3 font-semibold text-white bg-indigo-600 rounded-md hover:bg-indigo-700">
-                            Pay Now
+                            Bayar Sekarang
                         </button>
                     </div>
                 </div>

@@ -46,9 +46,14 @@
                                             Status: <span
                                                 class="font-medium capitalize text-{{ $order->payment_status == 'paid' ? 'green' : ($order->payment_status == 'failed' ? 'red' : 'yellow') }}-600">{{ $order->payment_status }}</span>
                                         </p>
+                                        <p class="text-sm text-gray-600">
+                                            Order Status: <span
+                                                class="font-medium capitalize text-{{ $order->status == 'completed' ? 'green' : ($order->status == 'cancelled' ? 'red' : ($order->status == 'processing' ? 'blue' : 'gray')) }}-600">{{ $order->status }}</span>
+                                        </p>
                                     </div>
                                     <div class="flex flex-col items-start sm:items-end">
-                                        <p class="font-bold">Total: Rp{{ number_format($order->total_amount, 0, ',', '.') }}
+                                        <p class="font-bold">Total:
+                                            Rp{{ number_format($order->total_amount, 0, ',', '.') }}
                                         </p>
 
                                         @if ($order->payment_status == 'unpaid' || $order->payment_status == 'failed')
@@ -81,27 +86,30 @@
     <x-slot name="scripts">
         @if (session('snapToken'))
             <!-- Midtrans Snap.js -->
-            <script src="https://app.sandbox.midtrans.com/snap/snap.js"
-                data-client-key="{{ config('midtrans.client_key') }}"></script>
+            <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}">
+            </script>
             <script>
                 window.snap.pay('{{ session('snapToken') }}', {
-                    onSuccess: function (result) {
-                        fetch('{{ route("checkout.success") }}', {
+                    onSuccess: function(result) {
+                        fetch('{{ route('checkout.success') }}', {
                             method: 'POST',
-                            headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
                             body: JSON.stringify(result)
                         }).then(() => {
-                            window.location.href = '{{ route("customer.dashboard") }}?status=success';
+                            window.location.href = '{{ route('customer.dashboard') }}?status=success';
                         });
                     },
-                    onPending: function (result) {
-                        window.location.href = '{{ route("customer.dashboard") }}?status=pending';
+                    onPending: function(result) {
+                        window.location.href = '{{ route('customer.dashboard') }}?status=pending';
                     },
-                    onError: function (result) {
+                    onError: function(result) {
                         alert('Payment failed. Please try again.');
                     },
-                    onClose: function () {
-                        window.location.href = '{{ route("customer.dashboard") }}';
+                    onClose: function() {
+                        window.location.href = '{{ route('customer.dashboard') }}';
                     }
                 });
             </script>

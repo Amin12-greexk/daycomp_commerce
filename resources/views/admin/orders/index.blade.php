@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('content-header', 'Orders')
+@section('content-header', 'All Orders')
 
 @section('content')
     <div class="overflow-hidden bg-white shadow-md rounded-md">

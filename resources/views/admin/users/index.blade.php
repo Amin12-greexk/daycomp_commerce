@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 
-@section('content-header', 'User Management')
+@section('content-header', 'Kelola User')
 
 @section('content')
     <div class="flex justify-end mb-4">
         <a href="{{ route('admin.users.create') }}"
-            class="px-4 py-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-700">Add User</a>
+            class="px-4 py-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-700">+ User</a>
     </div>
 
     {{-- Session Messages --}}
